@@ -96,4 +96,83 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+    public void Update(View v)
+    {
+        String getId=etId.getText().toString().trim();
+        String getEmail=etEmail.getText().toString();
+        String getName=etName.getText().toString();
+
+        if (getId.isEmpty())
+        {
+            etId.setError("Please input your id");
+            etId.requestFocus();
+
+        }
+
+        else if (getName.isEmpty())
+        {
+            etName.setError("Please input your name");
+            etName.requestFocus();
+
+        }
+
+        else if (getEmail.isEmpty() || !getEmail.contains("@") || !getEmail.contains("."))
+        {
+            etEmail.setError("Please input valid email");
+            etEmail.requestFocus();
+
+        }
+
+        else
+        {
+            boolean check=dbHelper.updateData(getId,getName,getEmail);
+            if (check==true)
+            {
+                Toast.makeText(MainActivity.this, "Data update successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            else
+            {
+                Toast.makeText(MainActivity.this, "Data update fail", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+    }
+
+
+
+    public void delete(View v)
+    {
+        String id=etId.getText().toString().trim();
+        if (id.isEmpty())
+        {
+            etId.setError("Please input your id");
+            etId.requestFocus();
+
+        }
+        else
+        {
+            boolean check=dbHelper.deleteData(id);
+            if (check==true)
+            {
+                Toast.makeText(this, "Data deleted successfully", Toast.LENGTH_SHORT).show();
+            }
+
+            else
+            {
+                Toast.makeText(this, "Delete Fail", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+
+
+    }
+
+
+
+
 }
